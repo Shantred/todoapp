@@ -1,0 +1,31 @@
+{
+  "name": "productivitytodo",
+  "version": "1.0.0",
+  "description": "A todo app supporting multiple projects at once, using react/node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "nodeJS",
+    "todo",
+    "app",
+    "typescript"
+  ],
+  "author": "Eric South",
+  "license": "ISC",
+  "dependencies": {
+    "@types/bootstrap": "^3.3.35",
+    "@types/react": "^15.0.39",
+    "@types/react-dom": "^15.5.1",
+    "bootstrap": "^3.3.7",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.1",
+    "source-map-loader": "^0.2.1",
+    "typescript": "^2.4.2"
+  }
+}
