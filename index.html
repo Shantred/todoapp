@@ -5,9 +5,38 @@
         <title>Productivity To-Do App By Eric South</title>
         <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="./node_modules/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="./src/css/main.css">
     </head>
     <body>
-        <div id="example"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="project-widget col-md-4">
+                    <header role="heading">
+                        <h2>Inventory To-do<i class="fa fa-check"></i></h2>
+                    </header>
+                    <div role="content">
+                        <div class="widget-content no-padding">
+                            <div class="form-group full-width">
+                                <input type="text" class="form-control todo-input" placeholder="Enter New Task Here">
+                            </div>
+                            <div class="todo-container">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                            <input type="checkbox" name="checkbox" class="large">
+                                        <span>Finish this todo app</span>
+                                    </li>
+                                    <li class="list-group-item">
+                                            <input type="checkbox" name="checkbox" class="large">
+                                        <span>Add saving of tasks to localstorage and make this line so long that it has to wrap and makes htings look a bit funny, probably</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Dependencies -->
         <script src="./node_modules/react/dist/react.js"></script>

@@ -1,0 +1,154 @@
+body {
+  background-color: #fff;
+}
+
+.project-widget {
+  /* TODO */
+}
+
+.project-widget>header {
+  line-height: normal;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  color: #fef5f5;
+  border: 1px solid #fef5f5;
+  background: #e03f39;
+  border-bottom: 0;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+.project-widget>header>h2 {
+  float: left;
+  height: 100%;
+  width: auto;
+  display: inline-block;
+  font-size: 13px;
+  position: relative;
+  margin: 0;
+  line-height: 34px;
+  font-weight: bold;
+  letter-spacing: 0;
+  margin-left: 20px;
+}
+
+.project-widget>div {
+  background-color: #fff !important;
+  float: left;
+  width: 100%;
+  position: relative;
+  font-size: 13px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  margin: 0;
+  border-width: 1px 1px 2px;
+  border-style: solid;
+  border-top: none;
+  border-right-color: #dee0df !important;
+  border-bottom-color: #dee0df !important;
+  border-left-color: #dee0df !important;
+  padding: 13px 13px 0;
+  overflow: visible;
+}
+
+.project-widget .widget-content {
+  position: relative;
+}
+
+.widget-content.no-padding {
+  margin: -13px -13px 0;
+}
+
+.widget-content .form-group.full-width {
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+.widget-content .todo-input {
+  width: 100%;
+  height: 55px !important;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  border-top: 1px solid #dee0df;
+  border-bottom: 1px solid #dee0df;
+  border-left: 0;
+  border-right: 0;
+  text-align: center;
+  font-size: 20px;
+  color: #808080;
+}
+
+
+.todo-container .list-group {
+  margin-bottom: 0;
+}
+
+.todo-container .list-group-item {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  padding: 20px 15px;
+}
+
+.todo-container .list-group-item span {
+  position: relative;
+  top: -5px;
+  left: 10px;
+  font-size: 32px;
+}
+
+/* Main Classes */
+.todo-container input[type="checkbox"]:before{
+    position: relative;
+    display: block;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #dee0df;
+    content: "";
+    background: #FFF;
+}
+
+.todo-container input[type="checkbox"]:after{
+    position: relative;
+    display: block;
+    top: -1px;
+    left: 1px;
+    width: 32px;
+    height: 32px;
+    content: "";
+    color: #3276B1;
+    border-color: #dee0df;
+}
+
+.todo-container input[type="checkbox"]:checked:after{
+    font: 400 32px/30px FontAwesome;
+    content: '\f00c';
+    color: #3276B1;
+    text-align: center;
+}
+
+.todo-container input[type="checkbox"]:not(:disabled):checked:hover:after{
+    font-family: FontAwesome;
+    content: '\f00c';
+}
+
+/* Large checkboxes */
+.todo-container .large{
+    height:32px;
+    width: 32px;
+}
+
+.todo-container .large[type="checkbox"]:before{
+    width: 32px;
+    height: 32px;
+}
+.todo-container .large[type="checkbox"]:after{
+    top: -32px;
+    width: 32px;
+    height: 32px;
+}
