@@ -11,104 +11,16 @@
     <body>
         <div class="container-fluid">
             <div class="row">
-                <div class="project-widget col-md-4">
-                    <header role="heading">
-                        <h2>To-do To-do</h2>
-                    </header>
-                    <div class="red" role="content">
-                        <div class="widget-content no-padding">
-                            <div class="form-group full-width">
-                                <input type="text" class="form-control todo-input red" placeholder="Add New Task">
-                            </div>
-                            <div class="todo-container">
-                                <ul class="list-group">
-                                    <li class="list-group-item red">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="checkbox" class="red todo-item">
-                                        </div>
-                                        <div class="checkbox-label">
-                                            <label>Convert this to react</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item red">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="checkbox" class="red todo-item">
-                                        </div>
-                                        <div class="checkbox-label">
-                                            <label>Add way to add tasks</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item red">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="checkbox" class="red todo-item">
-                                        </div>
-                                        <div class="checkbox-label">
-                                            <label>convert to local storage and add auto-saving</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item red checked">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="checkbox" class="red todo-item" checked>
-                                        </div>
-                                        <div class="checkbox-label">
-                                            <label class="strikethrough">Change opacity when checking off an item and strikethrough it</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item red">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="checkbox" class="red todo-item">
-                                        </div>
-                                        <div class="checkbox-label">
-                                            <label>Add delete button for checklist items</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item red">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="checkbox" class="red todo-item">
-                                        </div>
-                                        <div class="checkbox-label">
-                                            <label>add ordering of tasks and sort unfinished first</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item red">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="checkbox" class="red todo-item">
-                                        </div>
-                                        <div class="checkbox-label">
-                                            <label>Add filter for all, pending and complete</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item red">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="checkbox" class="red todo-item">
-                                        </div>
-                                        <div class="checkbox-label">
-                                            <label>Make header bar more helpful</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item red">
-                                        <div class="checkbox">
-                                            <input type="checkbox" name="checkbox" class="red todo-item">
-                                        </div>
-                                        <div class="checkbox-label">
-                                            <label>Add support for multiple projects</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-widget  col-md-4">
+                <div class="project-widget col-md-4" data-listid="1" data-theme="red">
                     <header role="heading">
                         <h2>To-do To-do</h2>
                     </header>
                     <div role="content">
                         <div class="widget-content no-padding">
                             <div class="form-group full-width">
-                                <input type="text" class="form-control todo-input" placeholder="Add New Task">
+                                <input type="text" class="form-control todo-input" placeholder="Add New Task" data-listid="1">
                             </div>
-                            <div class="todo-container">
+                            <div class="todo-container" data-listid="1">
                                 <ul class="list-group">
                                     <li class="list-group-item">
                                         <div class="checkbox">
@@ -187,16 +99,104 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-widget col-md-4">
+                <div class="project-widget col-md-4" data-listid="2">
                     <header role="heading">
                         <h2>To-do To-do</h2>
                     </header>
                     <div role="content">
                         <div class="widget-content no-padding">
                             <div class="form-group full-width">
-                                <input type="text" class="form-control todo-input" placeholder="Add New Task">
+                                <input type="text" class="form-control todo-input" placeholder="Add New Task" data-listid="2">
                             </div>
-                            <div class="todo-container">
+                            <div class="todo-container" data-listid="2">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="checkbox" class="todo-item">
+                                        </div>
+                                        <div class="checkbox-label">
+                                            <label>Convert this to react</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="checkbox" class="todo-item">
+                                        </div>
+                                        <div class="checkbox-label">
+                                            <label>Add way to add tasks</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="checkbox" class="todo-item">
+                                        </div>
+                                        <div class="checkbox-label">
+                                            <label>convert to local storage and add auto-saving</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item checked">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="checkbox" class="todo-item" checked>
+                                        </div>
+                                        <div class="checkbox-label">
+                                            <label class="strikethrough">Change opacity when checking off an item and strikethrough it</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="checkbox" class="todo-item">
+                                        </div>
+                                        <div class="checkbox-label">
+                                            <label>Add delete button for checklist items</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="checkbox" class="todo-item">
+                                        </div>
+                                        <div class="checkbox-label">
+                                            <label>add ordering of tasks and sort unfinished first</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="checkbox" class="todo-item">
+                                        </div>
+                                        <div class="checkbox-label">
+                                            <label>Add filter for all, pending and complete</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="checkbox" class="todo-item">
+                                        </div>
+                                        <div class="checkbox-label">
+                                            <label>Make header bar more helpful</label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="checkbox">
+                                            <input type="checkbox" name="checkbox" class="todo-item">
+                                        </div>
+                                        <div class="checkbox-label">
+                                            <label>Add support for multiple projects</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-widget col-md-4" data-listid="3">
+                    <header role="heading">
+                        <h2>To-do To-do</h2>
+                    </header>
+                    <div role="content">
+                        <div class="widget-content no-padding">
+                            <div class="form-group full-width">
+                                <input type="text" class="form-control todo-input" placeholder="Add New Task" data-listid="3">
+                            </div>
+                            <div class="todo-container" data-listid="3">
                                 <ul class="list-group">
                                     <li class="list-group-item">
                                         <div class="checkbox">
@@ -287,6 +287,7 @@
         <!-- Main -->
         <script src="./dist/bundle.js"></script>
         <script type="text/javascript">
+            var taskIndex = 1;
             $(function() {
                 $(document).ready(function() {
                     $("body").on("change", ".todo-item:checkbox", function() {
@@ -294,14 +295,41 @@
                             console.log("box is now checked");
                             $(this).parent().parent().addClass('checked');
                             $(this).parent().parent().find('.checkbox-label label').addClass('strikethrough');
+
+                            // TODO add to end of completed list
                         } else {
                             console.log("box is now unchecked");
                             $(this).parent().parent().removeClass('checked');
                             $(this).parent().parent().find('.checkbox-label label').removeClass('strikethrough');
+
+                            // TODO add back to place in to-do
+                        }
+                    });
+
+                    $("body").on("keyup", '.todo-input', function(e) {
+                        if (!e) e = window.event;
+                        var key = e.keyCode || e.which;
+                        if (key == '13') {
+                            addTask($(this).attr('data-listid'), $(this).val());
+                            $(this).val('');
                         }
                     });
                 });
-            })
+            });
+
+            function addTask(list, taskText) {
+                $(".todo-container[data-listid=" + list + "] .list-group")
+                    .append('<li class="list-group-item" data-taskid="' + taskIndex + '">' +
+                        '<div class="checkbox">' +
+                            '<input type="checkbox" name="checkbox" class="todo-item">' +
+                        '</div>' +
+                        '<div class="checkbox-label">' +
+                            '<label>' + taskText + '</label>' +
+                        '</div>' +
+                    '</li>'
+                );
+                taskIndex++;
+            }
         </script>
     </body>
 </html>

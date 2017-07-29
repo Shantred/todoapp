@@ -184,21 +184,21 @@ body {
   display: table-cell;
 }
 
-.project-widget>div.red {
+.project-widget[data-theme="red"] {
   border-right-color: #ffa6a3 !important;
   border-bottom-color: #ffa6a3 !important;
   border-left-color: #ffa6a3 !important;
 }
 
-.widget-content .todo-input.red {
+.project-widget[data-theme="red"] .widget-content .todo-input {
   border-top: 1px solid #ffa6a3;
 }
 
-.todo-container .list-group-item.red {
+.project-widget[data-theme="red"] .todo-container .list-group-item {
   border-top: 1px solid #ffa6a3;
 }
 
-.todo-container input[type="checkbox"].red:before{
+.project-widget[data-theme="red"] .todo-container input[type="checkbox"]:before{
   border: 1px solid #ffa6a3;
   border-color: #ffa6a3;
   transition: border-color .3s;
@@ -208,11 +208,11 @@ body {
   -webkit-transition: border-color .3s;
 }
 
-.todo-container input[type="checkbox"].red:after{
+.project-widget[data-theme="red"] .todo-container input[type="checkbox"]:after{
   border-color: #ffa6a3;
 }
 
-.todo-container input[type="checkbox"].red:not(:disabled):not(:checked):hover:before{
+.project-widget[data-theme="red"] .todo-container input[type="checkbox"]:not(:disabled):not(:checked):hover:before{
   border-color: #e03f39;
   transition: border-color .3s;
   -o-transition: border-color .3s;
@@ -227,7 +227,7 @@ body {
   to { text-decoration-color: auto; }
 }
 
-.strikethrough {  
+label.strikethrough {  
   text-decoration: line-through;
   animation: strikethrough .3s linear;
 }
