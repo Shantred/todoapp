@@ -97,6 +97,21 @@ body {
   border-left: 0;
   border-right: 0;
   border-top: 1px solid #dee0df;
+  opacity: 1;
+  transition: opacity .3s;
+  -o-transition: opacity .3s;
+  -ms-transition: opacity .3s;
+  -moz-transition: opacity .3s;
+  -webkit-transition: opacity .3s;
+}
+
+.todo-container .list-group-item.checked {
+  opacity: 0.4;
+  transition: opacity .3s;
+  -o-transition: opacity .3s;
+  -ms-transition: opacity .3s;
+  -moz-transition: opacity .3s;
+  -webkit-transition: opacity .3s;
 }
 
 .todo-container .list-group-item label {
@@ -119,54 +134,54 @@ body {
 }
 /* Main Classes */
 .todo-container input[type="checkbox"]:before{
-    position: relative;
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    border: 1px solid #dee0df;
-    content: "";
-    background: #FFF;
-    vertical-align:middle;
-    border-color: #dee0df;
-    transition: border-color .3s;
-    -o-transition: border-color .3s;
-    -ms-transition: border-color .3s;
-    -moz-transition: border-color .3s;
-    -webkit-transition: border-color .3s;
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #dee0df;
+  content: "";
+  background: #FFF;
+  vertical-align:middle;
+  border-color: #dee0df;
+  transition: border-color .3s;
+  -o-transition: border-color .3s;
+  -ms-transition: border-color .3s;
+  -moz-transition: border-color .3s;
+  -webkit-transition: border-color .3s;
 }
 
 .todo-container input[type="checkbox"]:after{
-    position: relative;
-    display: inline-block;
-    top: -32px;
-    left: 1px;
-    width: 32px;
-    height: 32px;
-    content: "";
-    border-color: #dee0df;
-    vertical-align:middle;
+  position: relative;
+  display: inline-block;
+  top: -32px;
+  left: 1px;
+  width: 32px;
+  height: 32px;
+  content: "";
+  border-color: #dee0df;
+  vertical-align:middle;
 }
 
 .todo-container input[type="checkbox"]:checked:after{
-    font: 200 32px/30px FontAwesome;
-    content: '\f00c';
-    color: #6fc576;
-    text-align: center;
+  font: 200 32px/30px FontAwesome;
+  content: '\f00c';
+  color: #6fc576;
+  text-align: center;
 }
 
 .todo-container input[type="checkbox"]:not(:disabled):not(:checked):hover:before{
-    font: 200 32px/30px FontAwesome;
-    content: "";
-    border-color: #5D98CC;
-    transition: border-color .3s;
-    -o-transition: border-color .3s;
-    -ms-transition: border-color .3s;
-    -moz-transition: border-color .3s;
-    -webkit-transition: border-color .3s;
+  font: 200 32px/30px FontAwesome;
+  content: "";
+  border-color: #5D98CC;
+  transition: border-color .3s;
+  -o-transition: border-color .3s;
+  -ms-transition: border-color .3s;
+  -moz-transition: border-color .3s;
+  -webkit-transition: border-color .3s;
 }
 
-.todo-wrapper {
-    display: table-cell;
+.checkbox,.checkbox-label {
+  display: table-cell;
 }
 
 .project-widget>div.red {
@@ -184,24 +199,35 @@ body {
 }
 
 .todo-container input[type="checkbox"].red:before{
-    border: 1px solid #ffa6a3;
-    border-color: #ffa6a3;
-    transition: border-color .3s;
-    -o-transition: border-color .3s;
-    -ms-transition: border-color .3s;
-    -moz-transition: border-color .3s;
-    -webkit-transition: border-color .3s;
+  border: 1px solid #ffa6a3;
+  border-color: #ffa6a3;
+  transition: border-color .3s;
+  -o-transition: border-color .3s;
+  -ms-transition: border-color .3s;
+  -moz-transition: border-color .3s;
+  -webkit-transition: border-color .3s;
 }
 
 .todo-container input[type="checkbox"].red:after{
-    border-color: #ffa6a3;
+  border-color: #ffa6a3;
 }
 
 .todo-container input[type="checkbox"].red:not(:disabled):not(:checked):hover:before{
-    border-color: #e03f39;
-    transition: border-color .3s;
-    -o-transition: border-color .3s;
-    -ms-transition: border-color .3s;
-    -moz-transition: border-color .3s;
-    -webkit-transition: border-color .3s;
+  border-color: #e03f39;
+  transition: border-color .3s;
+  -o-transition: border-color .3s;
+  -ms-transition: border-color .3s;
+  -moz-transition: border-color .3s;
+  -webkit-transition: border-color .3s;
+}
+
+/* Strike-through animation curteousy of Stackoverflow user Oriol */
+@keyframes strikethrough {
+  from { text-decoration-color: transparent; }
+  to { text-decoration-color: auto; }
+}
+
+.strikethrough {  
+  text-decoration: line-through;
+  animation: strikethrough .3s linear;
 }
