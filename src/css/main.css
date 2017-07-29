@@ -48,9 +48,9 @@ body {
   border-width: 1px 1px 2px;
   border-style: solid;
   border-top: none;
-  border-right-color: #ffa6a3 !important;
-  border-bottom-color: #ffa6a3 !important;
-  border-left-color: #ffa6a3 !important;
+  border-right-color: #dee0df !important;
+  border-bottom-color: #dee0df !important;
+  border-left-color: #dee0df !important;
   padding: 13px 13px 0;
   overflow: visible;
 }
@@ -74,7 +74,7 @@ body {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
-  border-top: 1px solid #ffa6a3;
+  border-top: 1px solid #dee0df;
   border-left: 0;
   border-right: 0;
   padding-left: 15px;
@@ -96,7 +96,7 @@ body {
   border-bottom: 0;
   border-left: 0;
   border-right: 0;
-  border-top: 1px solid #ffa6a3;
+  border-top: 1px solid #dee0df;
 }
 
 .todo-container .list-group-item label {
@@ -113,6 +113,7 @@ body {
   display: inline-block;
   vertical-align: middle;
   width: 32px;
+  height: 32px;
   margin: 0;
   
 }
@@ -122,11 +123,11 @@ body {
     display: inline-block;
     width: 32px;
     height: 32px;
-    border: 1px solid #ffa6a3;
-    border-color: #ffa6a3;
+    border: 1px solid #dee0df;
     content: "";
     background: #FFF;
     vertical-align:middle;
+    border-color: #dee0df;
     transition: border-color .3s;
     -o-transition: border-color .3s;
     -ms-transition: border-color .3s;
@@ -137,12 +138,12 @@ body {
 .todo-container input[type="checkbox"]:after{
     position: relative;
     display: inline-block;
-    top: -1px;
+    top: -32px;
     left: 1px;
     width: 32px;
     height: 32px;
     content: "";
-    border-color: #ffa6a3;
+    border-color: #dee0df;
     vertical-align:middle;
 }
 
@@ -156,7 +157,7 @@ body {
 .todo-container input[type="checkbox"]:not(:disabled):not(:checked):hover:before{
     font: 200 32px/30px FontAwesome;
     content: "";
-    border-color: #e03f39;
+    border-color: #5D98CC;
     transition: border-color .3s;
     -o-transition: border-color .3s;
     -ms-transition: border-color .3s;
@@ -164,25 +165,43 @@ body {
     -webkit-transition: border-color .3s;
 }
 
-
-
-/* Large checkboxes */
-.todo-container .large{
-    height:32px;
-    width: 32px;
-}
-
-.todo-container .large[type="checkbox"]:before{
-    width: 32px;
-    height: 32px;
-}
-
-.todo-container .large[type="checkbox"]:after{
-    top: -32px;
-    width: 32px;
-    height: 32px;
-}
-
 .todo-wrapper {
     display: table-cell;
+}
+
+.project-widget>div.red {
+  border-right-color: #ffa6a3 !important;
+  border-bottom-color: #ffa6a3 !important;
+  border-left-color: #ffa6a3 !important;
+}
+
+.widget-content .todo-input.red {
+  border-top: 1px solid #ffa6a3;
+}
+
+.todo-container .list-group-item.red {
+  border-top: 1px solid #ffa6a3;
+}
+
+.todo-container input[type="checkbox"].red:before{
+    border: 1px solid #ffa6a3;
+    border-color: #ffa6a3;
+    transition: border-color .3s;
+    -o-transition: border-color .3s;
+    -ms-transition: border-color .3s;
+    -moz-transition: border-color .3s;
+    -webkit-transition: border-color .3s;
+}
+
+.todo-container input[type="checkbox"].red:after{
+    border-color: #ffa6a3;
+}
+
+.todo-container input[type="checkbox"].red:not(:disabled):not(:checked):hover:before{
+    border-color: #e03f39;
+    transition: border-color .3s;
+    -o-transition: border-color .3s;
+    -ms-transition: border-color .3s;
+    -moz-transition: border-color .3s;
+    -webkit-transition: border-color .3s;
 }
