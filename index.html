@@ -39,9 +39,22 @@
                         'currentWorkspace': 1,
                         'version' : '0.1',
                         'listIndex' : 2, // First index is occupied by the default list
-                        'taskIndex' : 1
+                        'taskIndex' : 3
                     };
-                    var workspaces = null;
+                    var workspaces = [ // Local container for workspace data, defined with default strucutre
+                        {
+                            'id' : 1,
+                            'title' : 'default workspace',
+                            'lists' : [
+                                listData(1, 2, 1, 'My first list', [
+                                    taskData(1, 1, 'This is an active task!', false),
+                                    taskData(2, 2, 'This is a completed task!', true)
+                                ])
+                            ]
+                        }
+                    ];
+                    var workspaceIndex = 0; // Because lazy, but also performance
+                    var workspace = null; // contains only the current workspace
                     var autoSave = null;
 
                     // If using localstorage, see if we need to do setup
@@ -66,6 +79,7 @@
                         // Setup auto-save every 10 seconds
                         autoSave = setInterval(function(settings, workspaces) {
                             setSettings();
+                            workspaces[workspaceIndex] = workspace;
                             setWorkspaces();
                             console.log("auto-saving...");
                         }, 10000, settings, workspaces);
@@ -109,87 +123,56 @@
                     }
 
                     function localStorageSetup() {
-                        var settings = {
-                            'currentWorkspace': 1,
-                            'version' : '0.1',
-                            'listIndex' : 2, // First index is occupied by the default list
-                            'taskIndex' : 3 // First two indexes are examples
-                        };
                         localStorage.setItem('settings', JSON.stringify(settings));
-
-                        var workspaces = [
-                            {
-                                'id' : 1,
-                                'title' : 'default workspace',
-                                'lists' : [
-                                    {
-                                        'id' : 1,
-                                        'column' : 1,
-                                        'position': 1,
-                                        'theme' : 'default',
-                                        'collapsed' : false,
-                                        'sort-lock' : false,
-                                        'filter' : 'all',
-                                        'title' : 'default list',
-                                        'tasks' : {
-                                            'active' : [
-                                                {
-                                                    id: 1,
-                                                    position: 1,
-                                                    text: 'This is an active task!'
-                                                }
-                                            ],
-                                            'complete' : [
-                                                {
-                                                    id: 2,
-                                                    position: 2,
-                                                    text: 'This is a completed task!'
-                                                }
-                                            ]
-                                        }
-                                    }
-                                ]
-                            }
-                        ];
                         localStorage.setItem('workspaces', JSON.stringify(workspaces));
-                        return workspaces;
-                    }
-
-                    function getSettings() {
-                        return JSON.parse(localStorage.getItem('settings'));
-                    }
-
-                    function setSettings() {
-                        localStorage.setItem('settings', JSON.stringify(settings));
-                    }
-
-                    function getWorkspaces() {
                         return JSON.parse(localStorage.getItem('workspaces'));
                     }
 
+                    function getSettings() {
+                        if (useLocalStorage) {
+                            return JSON.parse(localStorage.getItem('settings'));
+                        } else {
+                            return settings;
+                        }
+                        
+                    }
+
+                    function setSettings() {
+                        if (useLocalStorage) {
+                            localStorage.setItem('settings', JSON.stringify(settings));
+                        }
+                    }
+
+                    function getWorkspaces() {
+                        if (useLocalStorage) {
+                            return JSON.parse(localStorage.getItem('workspaces'));
+                        } else {
+                            return workspaces;
+                        }
+                    }
+
                     function setWorkspaces() {
-                        localStorage.setItem('workspaces', JSON.stringify(workspaces));
+                        if (useLocalStorage) {
+                            localStorage.setItem('workspaces', JSON.stringify(workspaces));
+                        }
                     }
 
                     function loadWorkspace(workspaceId) {
                         // Find the correct workspace
                         for(i = 0; i < workspaces.length; i++) {
                             if (workspaces[i].id == workspaceId) {
+                                // Store for easier manipulation
+                                workspaceIndex = i;
+                                workspace = workspaces[i];
 
                                 // Load all lists for the workspace, but only display lists once they are whole
-                                for(j = 0; j < workspaces[i].lists.length; j++) {
-                                    var list = workspaces[i].lists[j];
+                                for(j = 0; j < workspace.lists.length; j++) {
+                                    var list = workspace.lists[j];
                                     var tasksHtml = '';
 
-                                    // Add active tasks first
-                                    for(k = 0; k < list.tasks.active.length; k++) {
-                                        var task = workspaces[i].lists[j].tasks.active[k];
-                                        tasksHtml = tasksHtml.concat(taskHtml(list.id, task.id, task.text, false));
-                                    }
-
-                                    for(k = 0; k < list.tasks.complete.length; k++) {
-                                        var task = workspaces[i].lists[j].tasks.complete[k];
-                                        tasksHtml = tasksHtml.concat(taskHtml(list.id, task.id, task.text, true));
+                                    for(k = 0; k < list.tasks.length; k++) {
+                                        var task = workspace.lists[j].tasks[k];
+                                        tasksHtml = tasksHtml.concat(taskHtml(list.id, task.id, task.text, task.checked));
                                     }
 
                                     // Now we can add the list
@@ -201,12 +184,41 @@
 
                     function addList(column, title) {
                         $(".list-container[data-column=" + column + "]").append(listHtml(settings.listIndex, title));
+
+                        workspace.lists.push(listData(settings.listIndex, column, settings.listIndex, title));
+                        settings.listIndex++;
                     }
 
                     function addTask(listId, taskText) {
                         $(".todo-container[data-listid=" + listId + "] .list-group")
                             .append(taskHtml(listId, settings.taskIndex, taskText, false));
-                        taskIndex++;
+                        
+
+                        for(i = 0; i < workspace.lists.length; i++) {
+                            if (workspace.lists[i].id == listId) {
+                                workspace.lists[i].tasks.push(taskData(settings.taskIndex, settings.taskIndex, taskText, false));
+                                break;
+                            }
+                        }
+
+                        settings.taskIndex++;
+                    }
+
+                    function listData(listId, column, position, title, taskData) {
+                        // Include some default tasks if provided
+                        taskData = taskData || [];
+
+                        return {
+                            'id' : listId,
+                            'column' : column,
+                            'position': position,
+                            'theme' : 'default',
+                            'collapsed' : false,
+                            'sort-lock' : false,
+                            'filter' : 'all',
+                            'title' : title,
+                            'tasks' : taskData
+                        };
                     }
 
                     function listHtml(listId, title, tasksHtml) {
@@ -231,19 +243,30 @@
                         '</div>';
                     }
 
+                    function taskData(taskId, position, taskText, checked) {
+                        return {
+                            'id' : taskId,
+                            'position' : position,
+                            'text' : taskText,
+                            'checked' : checked
+                        };
+                    }
+
                     function taskHtml(listId, taskId, taskText, checked) {
                         if (checked == true) {
                             checked = 'checked';
+                            strikethrough = 'strikethrough';
                         } else {
                             checked = '';
+                            strikethrough = '';
                         }
 
                         return '<li class="list-group-item ' + checked + '" data-listid="' + listId +'" data-taskid="' + taskId + '">' +
                                 '<div class="checkbox">' +
-                                    '<input type="checkbox" class="todo-item">' +
+                                    '<input type="checkbox" class="todo-item" ' + checked + '>' +
                                 '</div>' +
                                 '<div class="checkbox-label">' +
-                                    '<label>' + taskText + '</label>' +
+                                    '<label class="' + strikethrough + '">' + taskText + '</label>' +
                                 '</div>' +
                             '</li>';
                     }

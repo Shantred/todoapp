@@ -85,6 +85,7 @@ body {
 .todo-container .list-group {
   display: table;
   margin-bottom: 0;
+  width: 100%;
 }
 
 .todo-container .list-group-item {
@@ -101,6 +102,7 @@ body {
   -ms-transition: opacity .3s;
   -moz-transition: opacity .3s;
   -webkit-transition: opacity .3s;
+  width: 100%;
 }
 
 .todo-container .list-group-item.checked {
