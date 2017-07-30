@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="list-container col-md-4" data-column="1">
-                    
+                
                 </div>
                 <div class="list-container col-md-4" data-column="2">
                     
@@ -92,14 +92,10 @@
                             console.log("box is now checked");
                             $(this).parent().parent().addClass('checked');
                             $(this).parent().parent().find('.checkbox-label label').addClass('strikethrough');
-
-                            // TODO add to end of completed list
                         } else {
                             console.log("box is now unchecked");
                             $(this).parent().parent().removeClass('checked');
                             $(this).parent().parent().find('.checkbox-label label').removeClass('strikethrough');
-
-                            // TODO add back to place in to-do
                         }
                     });
 
@@ -110,6 +106,13 @@
                             addTask($(this).attr('data-listid'), $(this).val());
                             $(this).val('');
                         }
+                    });
+
+                    $("body").on("click", ".task-delete", function() {
+                        var listId = $(this).attr('data-listid');
+                        var taskId = $(this).attr('data-taskid');
+                        $(this).parent().parent().remove();
+                        deleteTask(listId, taskId);
                     });
 
                     function checkLocalStorage() {
@@ -204,6 +207,18 @@
                         settings.taskIndex++;
                     }
 
+                    function deleteTask(listId, taskId) {
+                        for(i = 0; i < workspace.lists.length; i++) {
+                            if (workspace.lists[i].id == listId) {
+                                for(j = 0; j < workspace.lists[i].tasks.length; j++) {
+                                    if (workspace.lists[i].tasks[j].id == taskId) {
+                                        workspace.lists[i].tasks.splice(j, 1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     function listData(listId, column, position, title, taskData) {
                         // Include some default tasks if provided
                         taskData = taskData || [];
@@ -262,11 +277,16 @@
                         }
 
                         return '<li class="list-group-item ' + checked + '" data-listid="' + listId +'" data-taskid="' + taskId + '">' +
-                                '<div class="checkbox">' +
-                                    '<input type="checkbox" class="todo-item" ' + checked + '>' +
+                                '<div class="task-action">' +
+                                    '<btn class="task-delete" data-listid="' + listId + '" data-taskid="' + taskId + '"><i class="fa fa-times"></i></btn>' +
                                 '</div>' +
-                                '<div class="checkbox-label">' +
-                                    '<label class="' + strikethrough + '">' + taskText + '</label>' +
+                                '<div class="checkbox-wrapper">' +
+                                    '<div class="checkbox">' +
+                                        '<input type="checkbox" class="todo-item" ' + checked + '>' +
+                                    '</div>' +
+                                    '<div class="checkbox-label">' +
+                                        '<label class="' + strikethrough + '">' + taskText + '</label>' +
+                                    '</div>' +
                                 '</div>' +
                             '</li>';
                     }
