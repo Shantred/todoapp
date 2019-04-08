@@ -218,6 +218,11 @@ body {
   color: #e03f39;
 }
 
+.task-date {
+  display: table-cell;
+  width: 10%;
+}
+
 .project-widget[data-theme="red"] {
   border-right-color: #ffa6a3 !important;
   border-bottom-color: #ffa6a3 !important;
@@ -264,4 +269,44 @@ body {
 label.strikethrough {  
   text-decoration: line-through;
   animation: strikethrough .3s linear;
+}
+
+.swal2-popup {
+  font-size: 1.6rem !important;
+}
+
+.widget-controls {
+  position: relative;
+  height: 100%;
+  float: right;
+}
+
+.widget-options {
+  position: relative;
+  top: 15%;
+  right: 30%;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.list-container {
+  min-height: 200px;
+}
+
+.navbar-red {
+  border: 1px solid #ffa6a3;
+  background: #e03f39;
+}
+
+.navbar-red .navbar-brand {
+  color: #fff;
+}
+
+.navbar-red .navbar-nav>li>a {
+  color: #fff;
 }

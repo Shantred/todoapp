@@ -2,14 +2,59 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Productivity To-Do App By Eric South</title>
+        <title>Productivity To-Do App</title>
         <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="./node_modules/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="./src/css/main.css">
+        <link rel="stylesheet" href="./node_modules/sweetalert2/dist/sweetalert2.min.css">
     </head>
     <body>
-        <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top navbar-red">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">ToDo</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <select id="workspace-selection" class="form-control">
+                                <option value="0" selected disabled>Loading Workspaces...</option>
+                            </select>
+                        </div>
+                    </form>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Workspace <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="workspace-list-create" href="#">New List</a></li>
+                                <li><a id="workspace-rename" href="#">Rename Workspace</a></li>
+                                <li><a id="workspace-delete" href="#">Delete Workspace</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Options <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a id="workspaces-export" href="#">Export Data</a></li>
+                                <li><a id="workspaces-import" href="#">Import Data</a></li>
+                                <li><a id="workspace-create" href="#">New Workspace</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+        <div class="container-fluid" style="margin-top: 75px;">
             <div class="row">
                 <div class="list-container col-md-4" data-column="1">
                 
@@ -23,274 +68,19 @@
             </div>
         </div>
 
+        <a id="export-element" style="display: none;"></a>
+
         <!-- Dependencies -->
-        <script src="./node_modules/react/dist/react.js"></script>
-        <script src="./node_modules/react-dom/dist/react-dom.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="./node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+        <script src="./node_modules/sortablejs/Sortable.min.js"></script>
 
         <!-- Main -->
         <script src="./dist/bundle.js"></script>
         <script type="text/javascript">
-            $(function() {
-                $(document).ready(function() {
-                    var useLocalStorage = checkLocalStorage();
-                    var settings = {
-                        'currentWorkspace': 1,
-                        'version' : '0.1',
-                        'listIndex' : 2, // First index is occupied by the default list
-                        'taskIndex' : 3
-                    };
-                    var workspaces = [ // Local container for workspace data, defined with default strucutre
-                        {
-                            'id' : 1,
-                            'title' : 'default workspace',
-                            'lists' : [
-                                listData(1, 2, 1, 'My first list', [
-                                    taskData(1, 1, 'This is an active task!', false),
-                                    taskData(2, 2, 'This is a completed task!', true)
-                                ])
-                            ]
-                        }
-                    ];
-                    var workspaceIndex = 0; // Because lazy, but also performance
-                    var workspace = null; // contains only the current workspace
-                    var autoSave = null;
-
-                    // If using localstorage, see if we need to do setup
-                    if (useLocalStorage === true) {
-                        if (localStorage.getItem('workspaces') === null || localStorage.getItem('settings') === null) {
-                            workspaces = localStorageSetup();
-                            settings = JSON.parse(localStorage.getItem('settings'));
-                        } else {
-                            workspaces = getWorkspaces();
-                            settings = getSettings();
-                        }
-
-                        // loadWorkspace(settings.currentWorkspace).done(function() {
-                        //     // Setup auto-save every 10 seconds
-                        //     autoSave = setInterval(function(settings, workspaces) {
-                        //         setSettings();
-                        //         setWorkspaces();
-                        //         console.log("auto-saving...");
-                        //     }, 10000, settings, workspaces);
-                        // });
-
-                        // Setup auto-save every 10 seconds
-                        autoSave = setInterval(function(settings, workspaces) {
-                            setSettings();
-                            workspaces[workspaceIndex] = workspace;
-                            setWorkspaces();
-                            console.log("auto-saving...");
-                        }, 10000, settings, workspaces);
-
-                        loadWorkspace(settings.currentWorkspace);
-                    }
-
-                    $("body").on("change", ".todo-item:checkbox", function() {
-                        if ($(this).is(':checked')) {
-                            console.log("box is now checked");
-                            $(this).parent().parent().addClass('checked');
-                            $(this).parent().parent().find('.checkbox-label label').addClass('strikethrough');
-                        } else {
-                            console.log("box is now unchecked");
-                            $(this).parent().parent().removeClass('checked');
-                            $(this).parent().parent().find('.checkbox-label label').removeClass('strikethrough');
-                        }
-                    });
-
-                    $("body").on("keyup", '.todo-input', function(e) {
-                        if (!e) e = window.event;
-                        var key = e.keyCode || e.which;
-                        if (key == '13') {
-                            addTask($(this).attr('data-listid'), $(this).val());
-                            $(this).val('');
-                        }
-                    });
-
-                    $("body").on("click", ".task-delete", function() {
-                        var listId = $(this).attr('data-listid');
-                        var taskId = $(this).attr('data-taskid');
-                        $(this).parent().parent().remove();
-                        deleteTask(listId, taskId);
-                    });
-
-                    function checkLocalStorage() {
-                        try {
-                            localStorage.setItem('test', 'test');
-                            localStorage.removeItem('test');
-                            return true;
-                        } catch(e) {
-                            return false;
-                        }
-                    }
-
-                    function localStorageSetup() {
-                        localStorage.setItem('settings', JSON.stringify(settings));
-                        localStorage.setItem('workspaces', JSON.stringify(workspaces));
-                        return JSON.parse(localStorage.getItem('workspaces'));
-                    }
-
-                    function getSettings() {
-                        if (useLocalStorage) {
-                            return JSON.parse(localStorage.getItem('settings'));
-                        } else {
-                            return settings;
-                        }
-                        
-                    }
-
-                    function setSettings() {
-                        if (useLocalStorage) {
-                            localStorage.setItem('settings', JSON.stringify(settings));
-                        }
-                    }
-
-                    function getWorkspaces() {
-                        if (useLocalStorage) {
-                            return JSON.parse(localStorage.getItem('workspaces'));
-                        } else {
-                            return workspaces;
-                        }
-                    }
-
-                    function setWorkspaces() {
-                        if (useLocalStorage) {
-                            localStorage.setItem('workspaces', JSON.stringify(workspaces));
-                        }
-                    }
-
-                    function loadWorkspace(workspaceId) {
-                        // Find the correct workspace
-                        for(i = 0; i < workspaces.length; i++) {
-                            if (workspaces[i].id == workspaceId) {
-                                // Store for easier manipulation
-                                workspaceIndex = i;
-                                workspace = workspaces[i];
-
-                                // Load all lists for the workspace, but only display lists once they are whole
-                                for(j = 0; j < workspace.lists.length; j++) {
-                                    var list = workspace.lists[j];
-                                    var tasksHtml = '';
-
-                                    for(k = 0; k < list.tasks.length; k++) {
-                                        var task = workspace.lists[j].tasks[k];
-                                        tasksHtml = tasksHtml.concat(taskHtml(list.id, task.id, task.text, task.checked));
-                                    }
-
-                                    // Now we can add the list
-                                    $(".list-container[data-column=" + list.column + "]").append(listHtml(list.id, list.title, tasksHtml));
-                                }
-                            }
-                        }
-                    }
-
-                    function addList(column, title) {
-                        $(".list-container[data-column=" + column + "]").append(listHtml(settings.listIndex, title));
-
-                        workspace.lists.push(listData(settings.listIndex, column, settings.listIndex, title));
-                        settings.listIndex++;
-                    }
-
-                    function addTask(listId, taskText) {
-                        $(".todo-container[data-listid=" + listId + "] .list-group")
-                            .append(taskHtml(listId, settings.taskIndex, taskText, false));
-                        
-
-                        for(i = 0; i < workspace.lists.length; i++) {
-                            if (workspace.lists[i].id == listId) {
-                                workspace.lists[i].tasks.push(taskData(settings.taskIndex, settings.taskIndex, taskText, false));
-                                break;
-                            }
-                        }
-
-                        settings.taskIndex++;
-                    }
-
-                    function deleteTask(listId, taskId) {
-                        for(i = 0; i < workspace.lists.length; i++) {
-                            if (workspace.lists[i].id == listId) {
-                                for(j = 0; j < workspace.lists[i].tasks.length; j++) {
-                                    if (workspace.lists[i].tasks[j].id == taskId) {
-                                        workspace.lists[i].tasks.splice(j, 1);
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    function listData(listId, column, position, title, taskData) {
-                        // Include some default tasks if provided
-                        taskData = taskData || [];
-
-                        return {
-                            'id' : listId,
-                            'column' : column,
-                            'position': position,
-                            'theme' : 'default',
-                            'collapsed' : false,
-                            'sort-lock' : false,
-                            'filter' : 'all',
-                            'title' : title,
-                            'tasks' : taskData
-                        };
-                    }
-
-                    function listHtml(listId, title, tasksHtml) {
-                        // Allow generation without providing a task list
-                        taskHtml = taskHtml || '';
-
-                        return '<div class="project-widget" data-listid="' + listId + '">'+
-                            '<header role="heading">' +
-                                '<h2>' + title + '</h2>' +
-                            '</header>' +
-                            '<div role="content">' +
-                                '<div class="widget-content no-padding">' +
-                                    '<div class="form-group full-width">' +
-                                        '<input type="text" class="form-control todo-input" placeholder="Add New Task" data-listid="' + listId + '">' +
-                                    '</div>' +
-                                    '<div class="todo-container" data-listid="' + listId + '">' +
-                                        '<ul class="list-group">' + tasksHtml +
-                                        '</ul>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>' +
-                        '</div>';
-                    }
-
-                    function taskData(taskId, position, taskText, checked) {
-                        return {
-                            'id' : taskId,
-                            'position' : position,
-                            'text' : taskText,
-                            'checked' : checked
-                        };
-                    }
-
-                    function taskHtml(listId, taskId, taskText, checked) {
-                        if (checked == true) {
-                            checked = 'checked';
-                            strikethrough = 'strikethrough';
-                        } else {
-                            checked = '';
-                            strikethrough = '';
-                        }
-
-                        return '<li class="list-group-item ' + checked + '" data-listid="' + listId +'" data-taskid="' + taskId + '">' +
-                                '<div class="task-action">' +
-                                    '<btn class="task-delete" data-listid="' + listId + '" data-taskid="' + taskId + '"><i class="fa fa-times"></i></btn>' +
-                                '</div>' +
-                                '<div class="checkbox-wrapper">' +
-                                    '<div class="checkbox">' +
-                                        '<input type="checkbox" class="todo-item" ' + checked + '>' +
-                                    '</div>' +
-                                    '<div class="checkbox-label">' +
-                                        '<label class="' + strikethrough + '">' + taskText + '</label>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</li>';
-                    }
-                });
+            $(document).ready(function() {
+                    
             });
         </script>
     </body>
